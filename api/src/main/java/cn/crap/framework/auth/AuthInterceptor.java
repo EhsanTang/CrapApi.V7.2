@@ -43,8 +43,11 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             }
             
             // 返回服务器ip
+	try{
             response.setHeader("serviceIp", InetAddress.getLocalHost().getHostAddress());
-            
+	}catch(Exception e){
+		response.setHeader("serviceIp", "获取服务器IP地址错误，请检查服务器IP设置是否正确");
+	}
             if(authPassport == null || authPassport.validate() == false)
                 return true;
             
